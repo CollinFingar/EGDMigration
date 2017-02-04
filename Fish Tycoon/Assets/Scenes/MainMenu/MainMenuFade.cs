@@ -20,9 +20,9 @@ public class MainMenuFade : MonoBehaviour {
             StartButton.transform.Translate(Offset);
             ExitButton.transform.Translate(Offset);
 
-            if (TitleImage.transform.position.x < -10.0f )
+            if (TitleImage.transform.position.x < -100.0f )
             {
-                bFading = false;
+               // bFading = false;
             }
         }
     }
