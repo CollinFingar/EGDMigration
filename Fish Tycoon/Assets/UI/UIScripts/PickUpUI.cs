@@ -7,7 +7,7 @@ public class PickUpUI : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        InitializeParameters(false, 10, 8);
+        
 	}
 	
 	// Update is called once per frame
