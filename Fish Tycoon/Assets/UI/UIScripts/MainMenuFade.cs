@@ -19,6 +19,7 @@ public class MainMenuFade : MonoBehaviour {
             TitleImage.transform.Translate(Offset);
             StartButton.transform.Translate(Offset);
             ExitButton.transform.Translate(Offset);
+            Intro.transform.Translate(-Offset);
 
             if (TitleImage.transform.position.x < -100.0f )
             {
@@ -33,9 +34,11 @@ public class MainMenuFade : MonoBehaviour {
         TitleImage.GetComponent<Image>().CrossFadeAlpha(0.01f, 1.0f, false);
         StartButton.GetComponent<Image>().CrossFadeAlpha(0.01f, 1.0f, false);
         ExitButton.GetComponent<Image>().CrossFadeAlpha(0.01f, 1.0f, false);
+        Intro.GetComponent<Image>().CrossFadeAlpha(0.01f, 1.0f, false);
 
         StartButton.GetComponentInChildren<Text>().CrossFadeAlpha(0.01f, 1.0f, false);
         ExitButton.GetComponentInChildren<Text>().CrossFadeAlpha(0.01f, 1.0f, false);
+        Intro.GetComponentInChildren<Text>().CrossFadeAlpha(0.01f, 1.0f, false);
     }
 
     private Vector3 CalculateSpeed()
@@ -47,6 +50,7 @@ public class MainMenuFade : MonoBehaviour {
     public GameObject TitleImage;
     public GameObject StartButton;
     public GameObject ExitButton;
+    public GameObject Intro;
 
     public Vector3 InitialVelocity = new Vector3(5f, 0, 0);
     public Vector3 Acceleration = new Vector3(-0.35f, 0, 0);
