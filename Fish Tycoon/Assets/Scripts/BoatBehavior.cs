@@ -11,9 +11,9 @@ public class BoatBehavior : MonoBehaviour {
 	public float pathWidth = 1.0f;
 	public Color pathColor = Color.white;
 
-	int maxPathLength = 5;
+	public float maxPathLength = 100;
 
-	float travelSpeed = 0.1f;
+	public float travelSpeed = 0.1f;
 
 	void Awake() {
 		level = LevelHandler.Instance;
@@ -40,6 +40,9 @@ public class BoatBehavior : MonoBehaviour {
 			updatePath ();
 		}
 
+        if (Input.GetKeyDown (KeyCode.Backspace)) {
+            Stop ();
+        }
 		checkPath ();
 		path [0] = this.gameObject.transform.position;
 		Move ();
@@ -54,7 +57,6 @@ public class BoatBehavior : MonoBehaviour {
 				this.gameObject.transform.position = path [1];
 				timetomove = timetomove - (Vector3.Distance (path [0], path [1]) / travelSpeed);
 				path.RemoveAt (1);
-				Debug.Log ("While remove");
 			} else {
 				break;
 			}
@@ -70,15 +72,32 @@ public class BoatBehavior : MonoBehaviour {
 	void checkPath() {
 		if (path.Count > 1 && Vector3.Distance (path [1], this.transform.position) < 0.001f ) {
 			path.RemoveAt (1);
-			Debug.Log ("check remove");
 			updatePath ();
 		}
 	}
 
 	void addPathNode(Vector3 point) {
-		if (path.Count - 1 < maxPathLength) {
-			path.Add (new Vector3 (point.x, point.y, -1.0f));
-		}
+//		if (path.Count - 1 < maxPathLength) {
+//			path.Add (new Vector3 (point.x, point.y, -1.0f));
+//		}
+        float distance = 0.0f;
+        for (int i = 0; i < path.Count; i++) {
+            if (i + 1 < path.Count) {
+                if (i == 0) {
+                    distance += Vector3.Distance (this.gameObject.transform.position, path [i + 1]);
+                }
+                else {
+                    distance += Vector3.Distance (path [i], path [i + 1]);
+                }
+            }
+            else {
+                distance += Vector3.Distance (path [i], point);
+            }
+        }
+
+        if (distance < maxPathLength) {
+            path.Add (new Vector3 (point.x, point.y, -1.0f));
+        }
 	}
 
 	void updatePath() {
@@ -87,4 +106,9 @@ public class BoatBehavior : MonoBehaviour {
 		pathLine.numPositions = path.Count;
 		pathLine.SetPositions (points);
 	}
+
+    void Stop () {
+        path.Clear ();
+        path.Add (this.gameObject.transform.position);
+    }
 }
