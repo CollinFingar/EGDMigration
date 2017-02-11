@@ -16,7 +16,7 @@ public class BoatUI : MonoBehaviour {
 	}
 
     // Update all the info about this boat
-    void UpdateBoatInfo (int InMaxHP, int InCurrentHP, int InMaxCP, int InCurrentCP)
+    public void UpdateBoatInfo (int InMaxHP, int InCurrentHP, int InMaxCP, int InCurrentCP)
     {
         MaxHP = InMaxHP;
         CurrentHP = InCurrentHP;
