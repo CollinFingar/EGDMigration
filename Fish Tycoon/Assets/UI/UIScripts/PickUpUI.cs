@@ -20,7 +20,7 @@ public class PickUpUI : MonoBehaviour {
 	}
 
     // Initialize function
-    void InitializeParameters(bool IsFish, int Amount, int AffordableAmount)
+    public void InitializeParameters(bool IsFish, int Amount, int AffordableAmount)
     {
         this.IsFish = IsFish;
         this.Affordable = AffordableAmount;
