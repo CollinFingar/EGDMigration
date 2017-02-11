@@ -25,6 +25,9 @@ public class GameHandler : MonoBehaviour {
 	public int dockBuyPrice = 100;
 	public int dockSellPrice = 50;
 
+	public int totalCrewCount = 5;
+	public int unassignedCrewCount = 0;
+
 	// Use this for initialization
 	void Start () {
 		boats [0] = boat1Object;
@@ -66,18 +69,23 @@ public class GameHandler : MonoBehaviour {
 			boat.SetActive(true);
 			UI.UpdateBoatState (boatIndex, true);
 			UI.UpdateRepair (boatIndex, 100);
+			unassignedCrewCount -= 5;
+			UI.unassignedCrew -= 5;
+			UI.UpdateCrewTexts ();
 		//Becoming inactive
 		} else if (!active && activeState) {
 			boat.SetActive(false);
 			UI.UpdateBoatState (boatIndex, false);
 			UI.UpdateRepair (boatIndex, 100);
+			unassignedCrewCount += 5;
 		}
 	}
 
 	public void BuyBoat(int boatIndex){
-		if (funds >= boatBuyPrice) {
+		if (funds >= boatBuyPrice && unassignedCrewCount >= 5) {
 			funds -= boatBuyPrice;
 			activateBoat (boatIndex, true);
+			
 		}
 	}
 
@@ -110,5 +118,19 @@ public class GameHandler : MonoBehaviour {
 	public void SellDock(int dockIndex){
 		funds += dockSellPrice;
 		activateDock (dockIndex, false);
+	}
+
+	public void AddCrew(){
+		totalCrewCount++;
+		unassignedCrewCount++;
+		UI.AddCrew ();
+	}
+
+	public void SubtractCrew(){
+		if (unassignedCrewCount > 0) {
+			totalCrewCount--;
+			unassignedCrewCount--;
+			UI.SubtractCrew ();
+		}
 	}
 }

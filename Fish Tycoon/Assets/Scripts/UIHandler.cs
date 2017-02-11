@@ -262,7 +262,7 @@ public class UIHandler : MonoBehaviour {
 		}
 	}
 
-	void UpdateCrewTexts(){
+	public void UpdateCrewTexts(){
 		crewCount.text = totalCrew.ToString ();
 		crewAmount.text = totalCrew.ToString ();
 		unassignedCrewAmount.text = unassignedCrew.ToString ();
@@ -277,6 +277,13 @@ public class UIHandler : MonoBehaviour {
 		docks [dockIndex].active = active;
 		UpdateDockColor (dockIndex);
 		RefreshManagerUIButtons ();
+		if (active) {
+			docksOwned++;
+			docksCount.text = docksOwned.ToString ();
+		} else {
+			docksOwned--;
+			docksCount.text = docksOwned.ToString ();
+		}
 	}
 
 	public void UpdateDockColor(int dockIndex){
