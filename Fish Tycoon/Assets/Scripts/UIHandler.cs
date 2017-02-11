@@ -24,9 +24,9 @@ public struct BoatInfo{
 
 public struct DockInfo{
 	//If the dock is purchased and active
-	bool active;
-	//Price to purchase dock
-	int price;
+	public bool active;
+	//The dock gameobject
+	public GameObject dockObject;
 }
 
 public class UIHandler : MonoBehaviour {
@@ -113,7 +113,7 @@ public class UIHandler : MonoBehaviour {
 	}
 		
 
-	public void Initialize(GameObject[] boatObjects){
+	public void Initialize(GameObject[] boatObjects, GameObject[] dockObjects){
 		for (int i = 0; i < 3; i++) {
 			boats [i].boatObject = boatObjects [i];
 			boats [i].currentCapacity = 0;
@@ -122,10 +122,13 @@ public class UIHandler : MonoBehaviour {
 			boats [i].crewNeeded = crewNeeded;
 			boats [i].fuelRemaining = 100;
 			boats [i].fuelDepletionRate = 1;
+			docks [i].dockObject = dockObjects [i];
 			if (i == 0) {
 				boats [i].active = true;
+				docks [i].active = true;
 			} else {
 				boats [i].active = false;
+				docks [i].active = false;
 			}
 		}
 	}
@@ -226,5 +229,13 @@ public class UIHandler : MonoBehaviour {
 		crewCount.text = totalCrew.ToString ();
 		crewAmount.text = totalCrew.ToString ();
 		unassignedCrewAmount.text = unassignedCrew.ToString ();
+	}
+
+	public void UpdateBoatState(int boatIndex, bool active){
+		boats [boatIndex].active = active;
+	}
+
+	public void UpdateDockState(int dockIndex, bool active){
+		docks [dockIndex].active = active;
 	}
 }
