@@ -19,15 +19,19 @@ public class PickupPrefabUI : MonoBehaviour {
         }
 	}
 	
-    public void InitializeParameters(bool IsFish, int Amount, int AffordableAmount)
+    public void InitializeParameters(bool IsFish, int Amount)
     {
         this.IsFish = IsFish;
         this.Amount = Amount;
-        UI.InitializeParameters(this.IsFish, this.Amount, AffordableAmount);
     }
 
-    public void ShowUI(bool bShouldShow)
+    // if using this to hide UI, affordableamount is not needed.
+    public void ShowUI(bool bShouldShow, int AffordableAmount)
     {
+        if(bShouldShow)
+        {
+            UI.InitializeParameters(this.IsFish, this.Amount, AffordableAmount);
+        }
         UITransform.SetActive(bShouldShow);
     }
 
