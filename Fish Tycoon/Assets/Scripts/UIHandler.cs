@@ -63,23 +63,19 @@ public class UIHandler : MonoBehaviour {
 	public Image boat1StateColorM;
 	public Image boat2StateColorM;
 	public Image boat3StateColorM;
-	public Button boat1Buy;
 	public Button boat2Buy;
 	public Button boat3Buy;
 	public Button boat1Repair;
 	public Button boat2Repair;
 	public Button boat3Repair;
-	public Button boat1Sell;
 	public Button boat2Sell;
 	public Button boat3Sell;
 		//Dock Options
 	public Image dock1StateColorM;
 	public Image dock2StateColorM;
 	public Image dock3StateColorM;
-	public Button dock1Buy;
 	public Button dock2Buy;
 	public Button dock3Buy;
-	public Button dock1Sell;
 	public Button dock2Sell;
 	public Button dock3Sell;
 		//Crew Options
@@ -101,10 +97,15 @@ public class UIHandler : MonoBehaviour {
 	private int boatCapactiy = 20;
 	private int crewNeeded = 10;
 
+	public Color dockActiveColor;
+
 
 	// Use this for initialization
 	void Start () {
 		managerUI.SetActive (false);
+		dock1StateColorM.color = dockActiveColor;
+		dock2StateColorM.color = Color.gray;
+		dock3StateColorM.color = Color.gray;
 	}
 	
 	// Update is called once per frame
@@ -237,5 +238,22 @@ public class UIHandler : MonoBehaviour {
 
 	public void UpdateDockState(int dockIndex, bool active){
 		docks [dockIndex].active = active;
+		UpdateDockColor (dockIndex);
+	}
+
+	public void UpdateDockColor(int dockIndex){
+		if (dockIndex == 1) {
+			if (docks [1].active) {
+				dock2StateColorM.color = dockActiveColor;
+			} else {
+				dock2StateColorM.color = Color.gray;
+			}
+		} else if (dockIndex == 2) {
+			if (docks [2].active) {
+				dock3StateColorM.color = dockActiveColor;
+			} else {
+				dock3StateColorM.color = Color.gray;
+			}
+		}
 	}
 }
