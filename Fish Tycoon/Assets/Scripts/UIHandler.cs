@@ -6,22 +6,20 @@ using UnityEngine.UI;
 public struct BoatInfo{
 	//If the boat is purchased and active
 	public bool active;
-	//The level of the boat. The higher, the more capactiy and more crew needed
-	int level;
 	//The current capacity filled on the ship
-	int currentCapacity;
+	public int currentCapacity;
 	//The total amount a boat can hold
-	int capactiyCap;
+	public int capactiyCap;
 	//The current repair needed 100=None, 0=Totally Broken
-	int repairValue;
+	public int repairValue;
 	//The amount of crew needed to sail the boat
-	int crewNeeded;
+	public int crewNeeded;
 	//Gas remaining
-	float fuelRemaining;
+	public float fuelRemaining;
 	//Fuel depletion rate per second of moving
-	float fuelDepletionRate;
+	public float fuelDepletionRate;
 	//The boat gameobject
-	GameObject boatObject;
+	public GameObject boatObject;
 }
 
 public struct DockInfo{
@@ -100,6 +98,9 @@ public class UIHandler : MonoBehaviour {
 	public int refugeesSaved = 0;
 	public int refugeesDied = 0;
 
+	private int boatCapactiy = 20;
+	private int crewNeeded = 10;
+
 
 	// Use this for initialization
 	void Start () {
@@ -112,22 +113,53 @@ public class UIHandler : MonoBehaviour {
 	}
 		
 
-	void Initialize(){
-		
+	public void Initialize(GameObject[] boatObjects){
+		for (int i = 0; i < 3; i++) {
+			boats [i].boatObject = boatObjects [i];
+			boats [i].currentCapacity = 0;
+			boats [i].capactiyCap = boatCapactiy;
+			boats [i].repairValue = 100;
+			boats [i].crewNeeded = crewNeeded;
+			boats [i].fuelRemaining = 100;
+			boats [i].fuelDepletionRate = 1;
+			if (i == 0) {
+				boats [i].active = true;
+			} else {
+				boats [i].active = false;
+			}
+		}
 	}
 
-	void BoatInitializer(BoatInfo infoStruct, bool active){
-
-	}
 
 	public void ActivateManagerUI(bool active){
 		managerUI.SetActive (active);
+		if (active) {
+			Time.timeScale = 0;
+		} else {
+			Time.timeScale = 1;
+		}
+	}
+
+	public void UpdateRepair(int boatIndex, int value){
+		if (boatIndex == 0) {
+			UpdateRepairColor (boat1StateColor, value, boats [0].active);
+			UpdateRepairColor (boat1StateColorM, value, boats [0].active);
+			UpdateRepairText (boat1StateText, value, boats [0].active);
+		} else if (boatIndex == 1) {
+			UpdateRepairColor (boat2StateColor, value, boats [1].active);
+			UpdateRepairColor (boat2StateColorM, value, boats [1].active);
+			UpdateRepairText (boat2StateText, value, boats [1].active);
+		} else {
+			UpdateRepairColor (boat3StateColor, value, boats [2].active);
+			UpdateRepairColor (boat3StateColorM, value, boats [2].active);
+			UpdateRepairText (boat3StateText, value, boats [2].active);
+		}
 	}
 
 	//green->value=100
 	//yellow->value=50
 	//red->value=0
-	void UpdateRepairColor(Image status, int value){
+	void UpdateRepairColor(Image status, int value, bool active){
 		Color top;
 		Color bottom;
 		float valuef = value * 1f;
@@ -142,7 +174,7 @@ public class UIHandler : MonoBehaviour {
 		valuef /= 50f;
 		status.color = Color.Lerp (bottom, top, valuef);
 	}
-	void UpdateRepairText(Text status, int value){
+	void UpdateRepairText(Text status, int value, bool active){
 		status.text = value.ToString ();
 	}
 

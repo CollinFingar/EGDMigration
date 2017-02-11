@@ -13,7 +13,7 @@ public class BoatBehavior : MonoBehaviour {
 
 	int maxPathLength = 5;
 
-	float travelSpeed = 0.1f;
+	public float travelSpeed = 0.1f;
 
 	void Awake() {
 		level = LevelHandler.Instance;
