@@ -139,8 +139,44 @@ public class UIHandler : MonoBehaviour {
 		managerUI.SetActive (active);
 		if (active) {
 			Time.timeScale = 0;
+			RefreshManagerUIButtons ();
 		} else {
 			Time.timeScale = 1;
+		}
+	}
+
+	public void RefreshManagerUIButtons(){
+		if (boats [1].active) {
+			boat2Sell.gameObject.SetActive (true);
+			boat2Buy.gameObject.SetActive (false);
+			boat2Repair.gameObject.SetActive (true);
+		} else {
+			boat2Sell.gameObject.SetActive (false);
+			boat2Buy.gameObject.SetActive (true);
+			boat2Repair.gameObject.SetActive (false);
+		}
+		if (boats [2].active) {
+			boat3Sell.gameObject.SetActive (true);
+			boat3Buy.gameObject.SetActive (false);
+			boat3Repair.gameObject.SetActive (true);
+		} else {
+			boat3Sell.gameObject.SetActive (false);
+			boat3Buy.gameObject.SetActive (true);
+			boat3Repair.gameObject.SetActive (false);
+		}
+		if (docks [1].active) {
+			dock2Sell.gameObject.SetActive (true);
+			dock2Buy.gameObject.SetActive (false);
+		} else {
+			dock2Sell.gameObject.SetActive (false);
+			dock2Buy.gameObject.SetActive (true);
+		}
+		if (docks [2].active) {
+			dock3Sell.gameObject.SetActive (true);
+			dock3Buy.gameObject.SetActive (false);
+		} else {
+			dock3Sell.gameObject.SetActive (false);
+			dock3Buy.gameObject.SetActive (true);
 		}
 	}
 
@@ -234,11 +270,13 @@ public class UIHandler : MonoBehaviour {
 
 	public void UpdateBoatState(int boatIndex, bool active){
 		boats [boatIndex].active = active;
+		RefreshManagerUIButtons ();
 	}
 
 	public void UpdateDockState(int dockIndex, bool active){
 		docks [dockIndex].active = active;
 		UpdateDockColor (dockIndex);
+		RefreshManagerUIButtons ();
 	}
 
 	public void UpdateDockColor(int dockIndex){
