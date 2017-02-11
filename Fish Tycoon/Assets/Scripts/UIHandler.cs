@@ -147,8 +147,8 @@ public class UIHandler : MonoBehaviour {
 	}
 
 	void UpdateRefugeeTexts(){
-		savedCount = refugeesSaved.ToString ();
-		deathCount = refugeesDied.ToString ();
+		savedCount.text = refugeesSaved.ToString ();
+		deathCount.text = refugeesDied.ToString ();
 	}
 
 	public void UpdateFunds(int newValue){
