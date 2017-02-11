@@ -17,6 +17,7 @@ public class GameHandler : MonoBehaviour {
 	public int refugeesSaved = 0;
 	public int refugeesDied = 0;
 
+
 	// Use this for initialization
 	void Start () {
 		boats [0] = boat1Object;
@@ -34,6 +35,8 @@ public class GameHandler : MonoBehaviour {
 
 	void Initialize(){
 		UI.Initialize (boats);
+		boats [1].SetActive (false);
+		boats [2].SetActive (false);
 	}
 
 	public void UpdateRepair(GameObject boat, int value){
@@ -43,4 +46,6 @@ public class GameHandler : MonoBehaviour {
 			}
 		}
 	}
+
+	public void BuyBoat(){}
 }

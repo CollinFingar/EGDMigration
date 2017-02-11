@@ -160,6 +160,10 @@ public class UIHandler : MonoBehaviour {
 	//yellow->value=50
 	//red->value=0
 	void UpdateRepairColor(Image status, int value, bool active){
+		if (!active) {
+			status.color = Color.gray;
+			return;
+		}
 		Color top;
 		Color bottom;
 		float valuef = value * 1f;
@@ -175,6 +179,10 @@ public class UIHandler : MonoBehaviour {
 		status.color = Color.Lerp (bottom, top, valuef);
 	}
 	void UpdateRepairText(Text status, int value, bool active){
+		if (!active) {
+			status.text = "";
+			return;
+		}
 		status.text = value.ToString ();
 	}
 
