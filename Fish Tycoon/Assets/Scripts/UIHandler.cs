@@ -42,6 +42,9 @@ public class UIHandler : MonoBehaviour {
 		//Costs
 	public Text fundsAmount;
 	public Text dailyCostAmount;
+	public Text dockCostText;
+	public Text crewCostText;
+	public Text boatCostText;
 		//Docks
 	public Text docksCount;
 		//Crew
@@ -262,7 +265,7 @@ public class UIHandler : MonoBehaviour {
 		}
 	}
 
-	void UpdateCrewTexts(){
+	public void UpdateCrewTexts(){
 		crewCount.text = totalCrew.ToString ();
 		crewAmount.text = totalCrew.ToString ();
 		unassignedCrewAmount.text = unassignedCrew.ToString ();
@@ -277,6 +280,13 @@ public class UIHandler : MonoBehaviour {
 		docks [dockIndex].active = active;
 		UpdateDockColor (dockIndex);
 		RefreshManagerUIButtons ();
+		if (active) {
+			docksOwned++;
+			docksCount.text = docksOwned.ToString ();
+		} else {
+			docksOwned--;
+			docksCount.text = docksOwned.ToString ();
+		}
 	}
 
 	public void UpdateDockColor(int dockIndex){
@@ -293,5 +303,14 @@ public class UIHandler : MonoBehaviour {
 				dock3StateColorM.color = Color.gray;
 			}
 		}
+	}
+
+	public void UpdateCosts(int dockCost, int crewCost, int boatCost){
+		crewCostText.text = crewCost.ToString ();
+		dockCostText.text = dockCost.ToString ();
+		boatCostText.text = boatCost.ToString ();
+		int totCost = dockCost + crewCost + boatCost;
+		dailyCostAmount.text = totCost.ToString ();
+		dailyCost = totCost;
 	}
 }
