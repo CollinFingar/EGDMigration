@@ -8,18 +8,28 @@ public class TextCrawl : MonoBehaviour {
 	public Text textRef;
 	float textWidth; 
 	int textSize; //current Text size, so if changed by best fit, it can re-size itself
+
+	//Values that are reset upon text completion
 	Vector3 reset;
+	Vector2 maxStart;
+	Vector2 minStart;
+
 	RectTransform canvasRect;
-	bool textStart = false;
+	public bool textStart = false;
+	public bool textFinish = false; //whether or not the text has finished moving and can be used again
 	// Use this for initialization
 	void Start () {
+		textRef = GetComponent<Text> ();
+		reset = transform.position;
+		maxStart = textRef.rectTransform.offsetMax;
+		minStart = textRef.rectTransform.offsetMin;
 		textSize = 0;
 		textWidth = 0;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		if (textStart) {
+		if (textStart && !textFinish) {
 			//resize textCrawl offset to compensate for resized screen (probably won't happen much, but for my sanity)
 			if (textRef.cachedTextGenerator.fontSizeUsedForBestFit != textSize) {
 				Font thisFont = textRef.font;
@@ -31,15 +41,20 @@ public class TextCrawl : MonoBehaviour {
 					newWidth += characterInfo.advance;
 				}
 				textRef.rectTransform.offsetMax += new Vector2 (newWidth - textWidth, 0);
+				textRef.rectTransform.offsetMin -= new Vector2 (newWidth - textWidth, 0);
 				textWidth = newWidth;
 				textSize = textRef.cachedTextGenerator.fontSizeUsedForBestFit;
+				if (!textRef.enabled) {
+					textRef.enabled = true;
+				}
 			}
 			//print (textRef.cachedTextGenerator.fontSizeUsedForBestFit);
 			if (textRef.rectTransform.offsetMin.x >= -textRef.rectTransform.rect.width) {
 				//print (textRef.rectTransform.offsetMin.x);
 				transform.position = transform.position + new Vector3 (-textSpeed * Time.deltaTime, 0, 0);
 			} else {
-				Destroy (gameObject);
+				textRef.enabled = false;
+				textFinish = true;
 			}
 		}
 	}
@@ -51,8 +66,16 @@ public class TextCrawl : MonoBehaviour {
 		textRef.color = crawlColor;
 	}
 
-	public void ScrollText() {
-		textRef.enabled = true;
+	public void ScrollText(string crawlText,Color crawlColor) {
+		textRef.text = crawlText;
+		textRef.color = crawlColor;
 		textStart = true;
+		textFinish = false;
+		//reset the text's position
+		textSize = 0;
+		textWidth = 0;
+		transform.position = reset;
+		textRef.rectTransform.offsetMax = maxStart;
+		textRef.rectTransform.offsetMin = minStart;
 	}
 }

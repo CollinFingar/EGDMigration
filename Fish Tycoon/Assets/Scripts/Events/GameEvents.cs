@@ -12,13 +12,14 @@ public class GameEvents : MonoBehaviour {
 	public string[] lowProfits; //when profits are low
 	public string[] newDock; //when the player buys a new dock
 
-	List<GameObject> messageQueue; //list of messages to come
+	List<int> messageQueue; //list of messages to come
 	public GameObject messageRef;
+	TextCrawl messageTextRef;
 	ArrayList textCrawling; //global 
 	// Use this for initialization
 	void Awake() {
 		textCrawling = new ArrayList ();
-		messageQueue = new List<GameObject> ();
+		messageQueue = new List<int> ();
 
 		ArrayList grouping1 = new ArrayList ();
 		ArrayList grouping2 = new ArrayList ();
@@ -69,6 +70,8 @@ public class GameEvents : MonoBehaviour {
 		grouping7.Add (ref7);
 		grouping7.Add (Color.white);
 		textCrawling.Add (grouping7);
+
+		messageTextRef = messageRef.GetComponent<TextCrawl> ();
 	}
 	void Start () {
 		
@@ -78,56 +81,50 @@ public class GameEvents : MonoBehaviour {
 	void Update () {
 		
 		if (Input.GetKeyDown (KeyCode.Alpha1)) {
-			addMessage (0);
+			messageQueue.Add (0);
 		}
 		if (Input.GetKeyDown (KeyCode.Alpha2)) {
-			addMessage (1);
-		}
+			messageQueue.Add (1);		}
 		if (Input.GetKeyDown (KeyCode.Alpha3)) {
-			addMessage (2);
+			messageQueue.Add (2);
 		}
 		if (Input.GetKeyDown (KeyCode.Alpha4)) {
-			addMessage (3);
+			messageQueue.Add (3);
 		}
 		if (Input.GetKeyDown (KeyCode.Alpha5)) {
-			addMessage (4);
+			messageQueue.Add (4);
 		}
 		if (Input.GetKeyDown (KeyCode.Alpha6)) {
-			addMessage (5);
+			messageQueue.Add (5);
 		}
 		if (Input.GetKeyDown (KeyCode.Alpha7)) {
-			addMessage (6);
+			messageQueue.Add (6);
 		}
 		if (Input.GetKeyDown (KeyCode.Alpha8)) {
 			print(messageQueue);
 		}
-		if (messageQueue.Count > 0 && messageQueue[0] == null) {
+
+		if (messageQueue.Count > 0 && !messageTextRef.textStart) {
+			addMessage (messageQueue [0]);
 			messageQueue.RemoveAt (0);
-			if (messageQueue.Count > 0) {
-				messageQueue [0].GetComponent<TextCrawl> ().ScrollText ();
-			}
 		}
+		if (messageQueue.Count > 0 && messageTextRef.textFinish) {
+			addMessage (messageQueue [0]);
+			messageQueue.RemoveAt (0);
+		}
+
+
+
 	}
 
 	public void addMessage(int type) {
-		GameObject newMessage = (GameObject)Instantiate (messageRef,transform);
-		Text textRef = newMessage.GetComponent<Text> ();
-		textRef.color = (Color)((ArrayList)textCrawling [type])[2]; //gets color of message (white = neutral, green = good, red = bad)
 		int refInt = (int)((ArrayList)textCrawling [type]) [1];
 		string[] mesRef = (string[])((ArrayList)textCrawling [type]) [0];
-		textRef.text = mesRef [refInt];
+		messageTextRef.ScrollText (mesRef [refInt], (Color)((ArrayList)textCrawling [type]) [2]);
 		if (refInt + 1 >= mesRef.Length) {
-			((ArrayList)textCrawling [type])[1] = 0; 
+			((ArrayList)textCrawling [type]) [1] = 0; 
 		} else {
-			((ArrayList)textCrawling [type]) [1] = (int)((ArrayList)textCrawling [type])[1] + 1;
+			((ArrayList)textCrawling [type]) [1] = (int)((ArrayList)textCrawling [type]) [1] + 1;
 		}
-		TextCrawl crawlRef = newMessage.GetComponent<TextCrawl>();
-		crawlRef.TextSpawn (mesRef [refInt], (Color)((ArrayList)textCrawling [type]) [2]);
-		textRef.enabled = false;
-		if (messageQueue.Count == 0) {
-			crawlRef.ScrollText ();
-		}
-		messageQueue.Add (newMessage);
-		//textCrawling[type]
 	}
 }
