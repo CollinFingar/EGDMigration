@@ -45,6 +45,9 @@ public class GameHandler : MonoBehaviour {
 			UpdateRepair (boats [i], 100);
 		}
 		UI.UpdateFunds (funds);
+		if (Input.GetKeyDown (KeyCode.Escape)) {
+			Application.Quit ();
+		}
 	}
 
 	void Initialize(){
