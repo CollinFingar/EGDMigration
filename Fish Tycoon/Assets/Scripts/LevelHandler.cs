@@ -22,9 +22,9 @@ public class LevelHandler : MonoBehaviour
 	// Clock implementation, time in military time
 	public struct ClockStruct
 	{
-		int hours;
-		int minutes;
-		float seconds;
+		public int hours;
+		public int minutes;
+		public float seconds;
 
 		public override string ToString ()
 		{
