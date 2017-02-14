@@ -35,14 +35,7 @@ public class BoatBehavior : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetMouseButtonDown (0)) {
-			addPathNode (Camera.main.ScreenToWorldPoint (Input.mousePosition));
-			updatePath ();
-		}
 
-        if (Input.GetKeyDown (KeyCode.Backspace)) {
-            Stop ();
-        }
 		checkPath ();
 		path [0] = this.gameObject.transform.position;
 		Move ();
@@ -71,15 +64,17 @@ public class BoatBehavior : MonoBehaviour {
 
 	void checkPath() {
 		if (path.Count > 1 && Vector3.Distance (path [1], this.transform.position) < 0.001f ) {
-			path.RemoveAt (1);
+            path.RemoveAt (1);
 			updatePath ();
 		}
 	}
 
-	void addPathNode(Vector3 point) {
-//		if (path.Count - 1 < maxPathLength) {
-//			path.Add (new Vector3 (point.x, point.y, -1.0f));
-//		}
+	public bool addPathNode(Vector3 point) {
+
+        if (Vector3.Distance (path [path.Count - 1], new Vector3 (point.x, point.y, -1.0f)) < 0.1f) {
+            return false;
+        }
+
         float distance = 0.0f;
         for (int i = 0; i < path.Count; i++) {
             if (i + 1 < path.Count) {
@@ -97,6 +92,10 @@ public class BoatBehavior : MonoBehaviour {
 
         if (distance < maxPathLength) {
             path.Add (new Vector3 (point.x, point.y, -1.0f));
+            return true;
+        }
+        else {
+            return false;
         }
 	}
 
@@ -107,7 +106,7 @@ public class BoatBehavior : MonoBehaviour {
 		pathLine.SetPositions (points);
 	}
 
-    void Stop () {
+    public void Stop () {
         path.Clear ();
         path.Add (this.gameObject.transform.position);
     }
