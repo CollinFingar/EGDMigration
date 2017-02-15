@@ -140,6 +140,10 @@ public class LevelHandler : MonoBehaviour
 		return (!pause) ? timeDilation: 0.0f;
 	}
 
+	public void setClock(int hour, int minutes, float seconds){
+		Clock.setTime (hour, minutes, seconds);
+	}
+
 	public void Pause() {
 		pause = !pause;
 	}

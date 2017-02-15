@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameHandler : MonoBehaviour {
 
 	public UIHandler UI;
+	public LevelHandler LH;
 
 	public GameObject boat1Object;
 	public GameObject boat2Object;
@@ -45,6 +47,9 @@ public class GameHandler : MonoBehaviour {
 	//sound effects associated with this manager
 	public AudioSource chaChing;
 
+	private int day = 1;
+
+	public Text daysText;
 
 	// Use this for initialization
 	void Start () {
@@ -55,6 +60,7 @@ public class GameHandler : MonoBehaviour {
 		timedFunds = funds;
 		timedSaves = 0;
 		timedDeaths = 0;
+		LH.setClock (7, 0, 0f);
 	}
 	
 	// Update is called once per frame
@@ -70,6 +76,10 @@ public class GameHandler : MonoBehaviour {
 		if (promptTimer > messageFreq) {
 			GenerateMessage ();
 			promptTimer = 0;
+		}
+		if (SenseTimePast ()) {
+			day++;
+			HandleNewDay ();
 		}
 	}
 
@@ -225,5 +235,43 @@ public class GameHandler : MonoBehaviour {
 		timedSaves = refugeesSaved;
 		timedDeaths = refugeesDied;
 		timedFunds = funds;
+	}
+
+	public bool SenseTimePast(){
+		int hour = LH.getClock ().hours;
+		if (hour >= 19) {
+			return true;
+		}
+		return false;
+	}
+
+	public void HandleNewDay(){
+		LH.setClock (7, 0, 0f);
+		daysText.text = "Day: " + day.ToString ();
+		SubtractDailyCosts ();
+	}
+
+	public void HandleNewDayBoats(){
+	
+	} 
+
+	public void SubtractDailyCosts(){
+		int dockCount = 0;
+		for (int i = 0; i < docks.Length; i++) {
+			if (docks [i].activeSelf) {
+				dockCount++;
+			}
+		}
+		int boatCount = 0;
+		for (int i = 0; i < boats.Length; i++) {
+			if (boats [i].activeSelf) {
+				boatCount++;
+			}
+		}
+		int crewCost = totalCrewCount * crewDailyCost;
+		int dockCost = dockCount * dockDailyCost;
+		int boatCost = boatCount * boatDailyCost;
+		funds = funds - crewCost - dockCost - boatCost;
+		UpdateCosts ();
 	}
 }
