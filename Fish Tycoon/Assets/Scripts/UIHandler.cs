@@ -105,6 +105,14 @@ public class UIHandler : MonoBehaviour {
 	public AudioSource boop; //sound when clicking various things
 	public AudioSource boop2; //another sound for clicking things
 
+	//BOAT UI
+	public GameObject boatUI;
+	public Text fishLevel;
+	public Text refugeesLevel;
+	public Text capacityLevel;
+	public Text fuelLevel;
+
+
 	// Use this for initialization
 	void Start () {
 		managerUI.SetActive (false);
@@ -117,7 +125,6 @@ public class UIHandler : MonoBehaviour {
 	void Update () {
 		
 	}
-		
 
 	public void Initialize(GameObject[] boatObjects, GameObject[] dockObjects){
 		for (int i = 0; i < 3; i++) {
@@ -317,5 +324,30 @@ public class UIHandler : MonoBehaviour {
 		int totCost = dockCost + crewCost + boatCost;
 		dailyCostAmount.text = totCost.ToString ();
 		dailyCost = totCost;
+	}
+
+	public void ToggleBoatUI(bool active){
+		if (boatUI.activeSelf && !active) {
+			boatUI.SetActive (false);
+		} else if (!boatUI.activeSelf && active) {
+			boatUI.SetActive (true);
+		}
+	}
+
+	public void UpdateBoatUI(int c, int f, int r, float fuel){
+		capacityLevel.text = c.ToString ();
+		fishLevel.text = f.ToString ();
+		refugeesLevel.text = r.ToString ();
+		fuelLevel.text = fuel.ToString ();
+	}
+
+	public void AddRefugeeSaved(int number){
+		refugeesSaved += number;
+		UpdateRefugeeTexts ();
+	}
+
+	public void AddRefugeePerished(int number){
+		refugeesDied += number;
+		UpdateRefugeeTexts ();
 	}
 }
