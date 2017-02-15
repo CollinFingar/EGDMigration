@@ -117,7 +117,6 @@ public class UIHandler : MonoBehaviour {
 	void Update () {
 		
 	}
-		
 
 	public void Initialize(GameObject[] boatObjects, GameObject[] dockObjects){
 		for (int i = 0; i < 3; i++) {
