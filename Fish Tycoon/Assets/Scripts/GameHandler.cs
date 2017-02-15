@@ -237,23 +237,23 @@ public class GameHandler : MonoBehaviour {
 			bottomText.messageQueue.Add (1);
 		}
 		if (messageNum == 1) {
-			if (refugeesDied != timedDeaths || (refugeesSaved - timedSaves) / (refugeesDied - timedDeaths) > 0.5f) {
+			if (refugeesDied != timedDeaths && (refugeesSaved - timedSaves) / (refugeesDied - timedDeaths) > 0.5f) {
 				bottomText.messageQueue.Add (3);
 			} else {
 				bottomText.messageQueue.Add (2);
 			}
+			timedSaves = refugeesSaved;
+			timedDeaths = refugeesDied;
 		} else if (messageNum == 2) {
 			if (timedFunds > funds * 1.1f) {
 				bottomText.messageQueue.Add (4);
 			} else {
 				bottomText.messageQueue.Add (5);
 			}
+			timedFunds = funds;
 		}
 		messageNum++;
 		if (messageNum > 2) {messageNum = 0;}
-		timedSaves = refugeesSaved;
-		timedDeaths = refugeesDied;
-		timedFunds = funds;
 	}
 
 	public bool SenseTimePast(){
