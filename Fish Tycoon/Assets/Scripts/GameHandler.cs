@@ -237,7 +237,7 @@ public class GameHandler : MonoBehaviour {
 			bottomText.messageQueue.Add (1);
 		}
 		if (messageNum == 1) {
-			if ((refugeesSaved - timedSaves) / (refugeesDied - timedDeaths) < 0.5f) {
+			if (refugeesDied != timedDeaths || (refugeesSaved - timedSaves) / (refugeesDied - timedDeaths) > 0.5f) {
 				bottomText.messageQueue.Add (3);
 			} else {
 				bottomText.messageQueue.Add (2);
