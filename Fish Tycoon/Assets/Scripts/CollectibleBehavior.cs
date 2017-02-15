@@ -16,6 +16,7 @@ public class CollectibleBehavior : MonoBehaviour {
     float amount = 0.0f;
 
     bool collecting = false;
+    GameObject collector = null;
 
 	// Use this for initialization
 	void Start () {
@@ -46,7 +47,7 @@ public class CollectibleBehavior : MonoBehaviour {
             amount = amount - 1.0f;
             total = total - 1;
 
-            // Add stuff
+            collector.GetComponent<BoatBehavior> ().addStuff (ct);
         }
     }
 
@@ -57,10 +58,12 @@ public class CollectibleBehavior : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D other) {
         collecting = true;
+        collector = other.gameObject;
     }
 
     void OnTriggerExit2D(Collider2D other) {
         collecting = false;
+        collector = null;
         amount = 0.0f;
     }
 
