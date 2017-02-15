@@ -20,5 +20,7 @@ public class DeathPassSpawn : MonoBehaviour {
 
 	void OnDestroy(){
 		SH.ReturnIndex (spawnNodeIndex);
+		int total = GetComponent<CollectibleBehavior> ().total;
+		FindObjectOfType<UIHandler> ().AddRefugeePerished (total);
 	}
 }

@@ -341,4 +341,14 @@ public class UIHandler : MonoBehaviour {
 		refugeesLevel.text = r.ToString ();
 		fuelLevel.text = fuel.ToString ();
 	}
+
+	public void AddRefugeeSaved(int number){
+		refugeesSaved += number;
+		UpdateRefugeeTexts ();
+	}
+
+	public void AddRefugeePerished(int number){
+		refugeesDied += number;
+		UpdateRefugeeTexts ();
+	}
 }
