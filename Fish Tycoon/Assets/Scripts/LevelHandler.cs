@@ -93,10 +93,6 @@ public class LevelHandler : MonoBehaviour
 	[Tooltip ("Amount of in-game seconds per real world second.")]
 	public float timeDilation = 1.0f;
 
-	void Awake ()
-	{
-		DontDestroyOnLoad (gameObject);
-	}
 
 	// Use this for initialization
 	void Start ()

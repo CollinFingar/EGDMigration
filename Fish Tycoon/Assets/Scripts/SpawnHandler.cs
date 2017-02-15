@@ -39,8 +39,6 @@ public class SpawnHandler : MonoBehaviour {
 			freeNodes.Add (i);
 		}
 		numSpawnNodes = spawnNodeFolder.transform.childCount;
-		SpawnRefugee ();
-		SpawnFish ();
 	}
 	
 	// Update is called once per frame
@@ -83,6 +81,14 @@ public class SpawnHandler : MonoBehaviour {
 		DeathPassSpawn[] spawnObjects = FindObjectsOfType<DeathPassSpawn> ();
 		for (int i = 0; i < spawnObjects.Length; i++) {
 			Destroy (spawnObjects [i].gameObject);
+		}
+		int fishToSpawn = fishDayLevels [day - 1];
+		int refugeesToSpawn = refugeeDayLevels [day - 1];
+		for (int i = 0; i < fishToSpawn; i++) {
+			SpawnFish ();
+		}
+		for (int i = 0; i < refugeesToSpawn; i++) {
+			SpawnRefugee ();
 		}
 	}
 }

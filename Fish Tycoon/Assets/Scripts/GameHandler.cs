@@ -61,6 +61,7 @@ public class GameHandler : MonoBehaviour {
 		timedSaves = 0;
 		timedDeaths = 0;
 		LH.setClock (7, 0, 0f);
+		FindObjectOfType<SpawnHandler> ().NewWave (day);
 	}
 	
 	// Update is called once per frame
