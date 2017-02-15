@@ -53,7 +53,7 @@ public class BoatBehavior : MonoBehaviour {
 		path [0] = this.gameObject.transform.position;
 		Move ();
 
-        Debug.Log ("Capacity: " + capacity + "/" + maxCapaciity + " | Fish: " + fish + " | Refugees: " + refugees + " | Fuel: " + fuel + "/" + maxFuel);
+        //Debug.Log ("Capacity: " + capacity + "/" + maxCapaciity + " | Fish: " + fish + " | Refugees: " + refugees + " | Fuel: " + fuel + "/" + maxFuel);
 	}
 
 	void Move() {

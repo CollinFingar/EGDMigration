@@ -35,8 +35,9 @@ public class SpawnHandler : MonoBehaviour {
 		int i = 0;
 		foreach (Transform child in spawnNodeFolder.transform) {
 			spawnNodes [i] = child.gameObject;
-			i++;
+
 			freeNodes.Add (i);
+			i++;
 		}
 		numSpawnNodes = spawnNodeFolder.transform.childCount;
 	}
@@ -84,6 +85,7 @@ public class SpawnHandler : MonoBehaviour {
 		}
 		int fishToSpawn = fishDayLevels [day - 1];
 		int refugeesToSpawn = refugeeDayLevels [day - 1];
+		print ("FISH SPAWNING: " + fishToSpawn.ToString () + " REFUGEES: " + refugeesToSpawn.ToString ());
 		for (int i = 0; i < fishToSpawn; i++) {
 			SpawnFish ();
 		}
