@@ -38,6 +38,10 @@ public class CollectibleBehavior : MonoBehaviour {
         if (collecting) {
             collect ();
         }
+
+        if (total == 0) {
+            Destroy (this.gameObject);
+        }
 	}
 
     void collect() {

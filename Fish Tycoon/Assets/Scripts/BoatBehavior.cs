@@ -25,6 +25,8 @@ public class BoatBehavior : MonoBehaviour {
     public int fish = 0;
     public int refugees = 0;
 
+    public int fishPrice = 5;
+
     bool docked = false;
 
 	void Awake() {
@@ -63,6 +65,7 @@ public class BoatBehavior : MonoBehaviour {
 
         if (fuel <= 0) {
             fuel = 0;
+            runOutOfFuel ();
             return;
         }
 
@@ -148,15 +151,14 @@ public class BoatBehavior : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D other) {
         if (other.gameObject.tag == "Dock") {
-            Debug.Log ("Docked");
 
             GameHandler gh = GameObject.FindObjectOfType<GameHandler> ();
             UIHandler uih = GameObject.FindObjectOfType<UIHandler> ();
 
-            gh.AddFunds (2*fish);
+            gh.AddFunds (fishPrice*fish);
             uih.AddRefugeeSaved (refugees);
 
-            gh.SubtractFunds (Mathf.CeilToInt(maxFuel - fuel) * 1);
+            gh.SubtractFunds (20);
 
             fish = 0;
             refugees = 0;
@@ -174,5 +176,11 @@ public class BoatBehavior : MonoBehaviour {
         docked = false;
     }
 
+    void runOutOfFuel() {
+        fish = 0;
+        refugees = 0;
+
+        this.transform.position = GameObject.FindGameObjectWithTag ("Dock").transform.position;
+    }
 
 }
