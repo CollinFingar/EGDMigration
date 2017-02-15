@@ -15,15 +15,17 @@ public class BoatBehavior : MonoBehaviour {
 
 	public float travelSpeed = 0.1f;
 
-    int capacity = 0;
+    public int capacity = 0;
     public int maxCapaciity = 30;
 
     public float maxFuel = 300.0f;
     public float fuelConsumptionRate = 15.0f;
-    float fuel = 0.0f;
+    public float fuel = 0.0f;
 
-    int fish = 0;
-    int refugees = 0;
+    public int fish = 0;
+    public int refugees = 0;
+
+    bool docked = false;
 
 	void Awake() {
 		level = LevelHandler.Instance;
@@ -55,7 +57,10 @@ public class BoatBehavior : MonoBehaviour {
 	}
 
 	void Move() {
-        fuel = fuel - fuelConsumptionRate * Time.deltaTime;
+        if (!docked) {
+            fuel = fuel - fuelConsumptionRate * Time.deltaTime;
+        }
+
         if (fuel <= 0) {
             fuel = 0;
             return;
@@ -160,7 +165,13 @@ public class BoatBehavior : MonoBehaviour {
 
             fuel = maxFuel;
 
+            docked = true;
+
         }
+    }
+
+    void OnTriggerExit2D(Collider2D other) {
+        docked = false;
     }
 
 
