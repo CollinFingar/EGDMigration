@@ -81,12 +81,24 @@ public class GameHandler : MonoBehaviour {
 		if (SenseTimePast ()) {
 			day++;
 			if (day > 10) {
-				//END THE GAME
+				GameState gameState = GameObject.Find ("GameState").GetComponent<GameState> ();
+				gameState.funds = funds;
+				UIHandler UIState = FindObjectOfType<UIHandler> ().GetComponent<UIHandler> ();
+				gameState.refsSaved = UIState.refugeesSaved;
+				gameState.refsDied = UIState.refugeesDied;
+				GameObject.Find ("LevelTransition").GetComponent<LevelTransition> ().EndGame ();
+				Cursor.SetCursor (null, Vector2.zero, CursorMode.Auto);
 			}
 			HandleNewDay ();
 		}
 		if (funds < 0) {
-			//END THE GAME
+			GameState gameState = GameObject.Find ("GameState").GetComponent<GameState> ();
+			gameState.funds = funds;
+			UIHandler UIState = FindObjectOfType<UIHandler> ().GetComponent<UIHandler> ();
+			gameState.refsSaved = UIState.refugeesSaved;
+			gameState.refsDied = UIState.refugeesDied;
+			GameObject.Find ("LevelTransition").GetComponent<LevelTransition> ().EndGame ();
+			Cursor.SetCursor (null, Vector2.zero, CursorMode.Auto);
 		}
 	}
 
