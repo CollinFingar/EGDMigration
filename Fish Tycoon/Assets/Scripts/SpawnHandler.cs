@@ -24,7 +24,7 @@ public class SpawnHandler : MonoBehaviour {
 	private float fishNextSpawn = 0f;
 	private float refugeeNextSpawn = 0f;
 
-	private int[] fishDayLevels = { 1, 2, 2, 2, 3, 3, 3, 3, 3, 4 };
+	private int[] fishDayLevels = { 1, 2, 2, 2, 3, 3, 3, 4, 4, 4 };
 	private int[] refugeeDayLevels = { 1, 2, 2, 3, 3, 3, 4, 4, 4, 5 };
 
 	private int day = 0;
