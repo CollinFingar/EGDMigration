@@ -21,8 +21,16 @@ public class PlayerHandler : MonoBehaviour {
         Collider2D c = Physics2D.OverlapPoint (Camera.main.ScreenToWorldPoint (Input.mousePosition));
         GameObject over =  (c == null) ? null:c.gameObject;
 
-        if (over != null) {
-            //Debug.Log (over.name);
+        if (interest != null && interest.tag == "Boat") {
+            UIHandler uih = FindObjectOfType<UIHandler> ();
+            uih.ToggleBoatUI (true);
+
+            BoatBehavior b = interest.GetComponent<BoatBehavior> ();
+            uih.UpdateBoatUI (b.maxCapaciity - b.capacity, b.fish, b.refugees, Mathf.Round(b.fuel));
+        }
+        else {
+            UIHandler uih = FindObjectOfType<UIHandler> ();
+            uih.ToggleBoatUI(false);
         }
 
         if ((over != null && over.tag == "Boat") || (interest != null && interest.tag == "Boat")) {
