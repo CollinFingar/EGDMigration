@@ -51,6 +51,11 @@ public class SpawnHandler : MonoBehaviour {
 		int r = Random.Range (0, freeNodes.Count-1);
 		int freeSpawnNodeIndex = (int) freeNodes [r];
 		//GIVE REFUGEE NODE INDEX
+		if (freeSpawnNodeIndex > spawnNodes.Length - 1) {
+			freeSpawnNodeIndex = spawnNodes.Length - 1;
+		} else if (freeSpawnNodeIndex < 0) {
+			freeSpawnNodeIndex = 0;
+		}
 		GameObject node = spawnNodes[freeSpawnNodeIndex];
 		GameObject newRefugeee = (GameObject)Instantiate (refugee, node.transform.position, Quaternion.identity);
 		freeNodes.RemoveAt (r);
