@@ -102,6 +102,8 @@ public class UIHandler : MonoBehaviour {
 
 	public Color dockActiveColor;
 
+	public AudioSource boop; //sound when clicking various things
+
 
 	// Use this for initialization
 	void Start () {
@@ -140,6 +142,7 @@ public class UIHandler : MonoBehaviour {
 
 	public void ActivateManagerUI(bool active){
 		managerUI.SetActive (active);
+		boop.Play ();
 		if (active) {
 			Time.timeScale = 0;
 			RefreshManagerUIButtons ();

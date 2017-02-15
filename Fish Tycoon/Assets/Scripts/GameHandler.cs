@@ -42,6 +42,9 @@ public class GameHandler : MonoBehaviour {
 	float timedSaves; //refugees saved since last update
 	float timedDeaths; //refugees that died since last update
 
+	//sound effects associated with this manager
+	public AudioSource chaChing;
+
 
 	// Use this for initialization
 	void Start () {
@@ -116,6 +119,7 @@ public class GameHandler : MonoBehaviour {
 		if (funds >= boatBuyPrice && unassignedCrewCount >= 5) {
 			funds -= boatBuyPrice;
 			activateBoat (boatIndex, true);
+			chaChing.Play ();
 			UpdateCosts ();
 		}
 	}
@@ -146,6 +150,7 @@ public class GameHandler : MonoBehaviour {
 		if (funds >= dockBuyPrice) {
 			funds -= dockBuyPrice;
 			activateDock (dockIndex, true);
+			chaChing.Play ();
 			print (dockIndex);
 			if (dockMax <= dockIndex) {
 				GameObject.Find ("TextCrawlCanvas").GetComponent<GameEvents> ().messageQueue.Add (6);
