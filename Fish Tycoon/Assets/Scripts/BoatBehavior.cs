@@ -51,7 +51,7 @@ public class BoatBehavior : MonoBehaviour {
 		path [0] = this.gameObject.transform.position;
 		Move ();
 
-        //Debug.Log ("Capacity: " + capacity + "/" + maxCapaciity + " | Fish: " + fish + " | Refugees: " + refugees + " | Fuel: " + fuel + "/" + maxFuel);
+        Debug.Log ("Capacity: " + capacity + "/" + maxCapaciity + " | Fish: " + fish + " | Refugees: " + refugees + " | Fuel: " + fuel + "/" + maxFuel);
 	}
 
 	void Move() {
@@ -144,6 +144,22 @@ public class BoatBehavior : MonoBehaviour {
     void OnTriggerEnter2D(Collider2D other) {
         if (other.gameObject.tag == "Dock") {
             Debug.Log ("Docked");
+
+            GameHandler gh = GameObject.FindObjectOfType<GameHandler> ();
+            UIHandler uih = GameObject.FindObjectOfType<UIHandler> ();
+
+            gh.AddFunds (2*fish);
+            uih.AddRefugeeSaved (refugees);
+
+            gh.SubtractFunds (Mathf.CeilToInt(maxFuel - fuel) * 1);
+
+            fish = 0;
+            refugees = 0;
+
+            capacity = 0;
+
+            fuel = maxFuel;
+
         }
     }
 
