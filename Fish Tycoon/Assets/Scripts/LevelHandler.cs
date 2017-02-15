@@ -102,7 +102,7 @@ public class LevelHandler : MonoBehaviour
 	void Start ()
 	{
         LoseMessage.SetActive(false);
-		Clock.setTime (23, 30, 0);
+		Clock.setTime (5, 30, 0);
 	}
 	
 	// Update is called once per frame
