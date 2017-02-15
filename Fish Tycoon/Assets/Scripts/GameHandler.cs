@@ -51,7 +51,7 @@ public class GameHandler : MonoBehaviour {
 		boats [0] = boat1Object;
 		boats [1] = boat2Object;
 		boats [2] = boat3Object;
-		Initialize ();
+        Initialize ();
 		timedFunds = funds;
 		timedSaves = 0;
 		timedDeaths = 0;
@@ -66,6 +66,10 @@ public class GameHandler : MonoBehaviour {
 		if (Input.GetKeyDown (KeyCode.Escape)) {
 			Application.Quit ();
 		}
+        if (funds <= 0)
+        {
+            Application.Quit();
+        }
 		promptTimer += Time.deltaTime;
 		if (promptTimer > messageFreq) {
 			GenerateMessage ();
@@ -198,6 +202,7 @@ public class GameHandler : MonoBehaviour {
 		int crewCost = totalCrewCount * crewDailyCost;
 		int dockCost = dockCount * dockDailyCost;
 		int boatCost = boatCount * boatDailyCost;
+        dailyCost = crewCost + dockCost + boatCost;
 		UI.UpdateCosts (dockCost, crewCost, boatCost);
 	}
 
