@@ -32,5 +32,6 @@ public class GameState : MonoBehaviour {
 		GameObject.Find ("RefsSavedText").GetComponent<Text> ().text += refsSaved;
 		GameObject.Find ("RefsDiedText").GetComponent<Text> ().text += refsDied;
 		GameObject.Find ("FundsText").GetComponent<Text> ().text += funds;
+		FindObjectOfType<EndGame> ().GetComponent<EndGame> ().goodGame = (funds >= 0);
 	}
 }

@@ -12,9 +12,10 @@ public class EndGame : MonoBehaviour {
 	public Text refsSavedText;
 	public Text refsDiedText;
 	public Text fundsText;
+	public bool goodGame;
 	// Use this for initialization
 	void Start () {
-		bool goodGame = true; //whether or not the player got a "good" ending in the sense that they stayed afloat
+		
 
 		if (goodGame) {
 			endText.text = "Your company managed to stay...";
