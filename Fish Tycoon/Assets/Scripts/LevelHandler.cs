@@ -100,7 +100,7 @@ public class LevelHandler : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
-		Clock.setTime (23, 30, 0);
+		Clock.setTime (5, 30, 0);
 	}
 	
 	// Update is called once per frame
@@ -115,6 +115,10 @@ public class LevelHandler : MonoBehaviour
         {
             GameHandler.funds -= GameHandler.dailyCost;
             Debug.Log(string.Format("day passed {0}, {1}", GameHandler.funds, GameHandler.dailyCost));
+            if (GameHandler.funds <= 0)
+            {
+                Debug.Log("quit");
+            }
             GameHandler.UpdateCosts();
         }
 	}

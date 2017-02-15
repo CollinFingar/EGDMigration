@@ -66,10 +66,6 @@ public class GameHandler : MonoBehaviour {
 		if (Input.GetKeyDown (KeyCode.Escape)) {
 			Application.Quit ();
 		}
-        if (funds <= 0)
-        {
-            Application.Quit();
-        }
 		promptTimer += Time.deltaTime;
 		if (promptTimer > messageFreq) {
 			GenerateMessage ();
