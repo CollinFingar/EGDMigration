@@ -249,6 +249,7 @@ public class GameHandler : MonoBehaviour {
 		LH.setClock (7, 0, 0f);
 		daysText.text = "Day: " + day.ToString ();
 		SubtractDailyCosts ();
+		FindObjectOfType<SpawnHandler> ().NewWave (day);
 	}
 
 	public void HandleNewDayBoats(){
