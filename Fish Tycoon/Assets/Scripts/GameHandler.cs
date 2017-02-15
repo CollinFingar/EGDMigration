@@ -67,7 +67,7 @@ public class GameHandler : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		for (int i = 0; i < 3; i++) {
-			UpdateRepair (boats [i], 100);
+			//UpdateRepair (boats [i], 100);
 		}
 		UI.UpdateFunds (funds);
 		if (Input.GetKeyDown (KeyCode.Escape)) {
@@ -114,7 +114,7 @@ public class GameHandler : MonoBehaviour {
 	public void UpdateRepair(GameObject boat, int value){
 		for (int i = 0; i < 3; i++) {
 			if (boat == boats [i]) {
-				UI.UpdateRepair (i, value);
+				//UI.UpdateRepair (i, value);
 			}
 		}
 	}
@@ -127,7 +127,7 @@ public class GameHandler : MonoBehaviour {
 			boat.transform.position = docks[0].transform.position;
 			boat.SetActive(true);
 			UI.UpdateBoatState (boatIndex, true);
-			UI.UpdateRepair (boatIndex, 100);
+			//UI.UpdateRepair (boatIndex, 100);
 			unassignedCrewCount -= 5;
 			UI.unassignedCrew -= 5;
 			UI.UpdateCrewTexts ();
@@ -136,7 +136,7 @@ public class GameHandler : MonoBehaviour {
 		} else if (!active && activeState) {
 			boat.SetActive(false);
 			UI.UpdateBoatState (boatIndex, false);
-			UI.UpdateRepair (boatIndex, 100);
+			//UI.UpdateRepair (boatIndex, 100);
 			unassignedCrewCount += 5;
 			UI.unassignedCrew += 5;
 			UI.UpdateCrewTexts ();
