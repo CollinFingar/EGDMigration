@@ -24,6 +24,11 @@ public class SpawnHandler : MonoBehaviour {
 	private float fishNextSpawn = 0f;
 	private float refugeeNextSpawn = 0f;
 
+	private int[] fishDayLevels = { 1, 2, 2, 2, 3, 3, 3, 3, 3, 4 };
+	private int[] refugeeDayLevels = { 1, 2, 2, 3, 3, 3, 4, 4, 4, 5 };
+
+	private int day = 0;
+
 	// Use this for initialization
 	void Start () {
 		spawnNodes = new GameObject[spawnNodeFolder.transform.childCount];
@@ -70,5 +75,14 @@ public class SpawnHandler : MonoBehaviour {
 
 	public void ReturnIndex(int index){
 		freeNodes.Add (index);
+	}
+
+	//1-10
+	public void NewWave(int d){
+		day = d;
+		DeathPassSpawn[] spawnObjects = FindObjectsOfType<DeathPassSpawn> ();
+		for (int i = 0; i < spawnObjects.Length; i++) {
+			Destroy (spawnObjects [i].gameObject);
+		}
 	}
 }
