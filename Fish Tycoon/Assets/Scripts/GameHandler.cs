@@ -274,4 +274,14 @@ public class GameHandler : MonoBehaviour {
 		funds = funds - crewCost - dockCost - boatCost;
 		UpdateCosts ();
 	}
+
+	public void AddFunds(int amount){
+		funds += amount;
+		UI.UpdateFunds (funds);
+	}
+
+	public void SubtractFunds(int amount){
+		funds -= amount;
+		UI.UpdateFunds (funds);
+	}
 }
