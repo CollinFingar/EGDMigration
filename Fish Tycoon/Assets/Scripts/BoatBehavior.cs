@@ -60,6 +60,9 @@ public class BoatBehavior : MonoBehaviour {
 
 	void Move() {
         if (!docked) {
+            int overcapacity = 1.0f;
+
+            overcapacity += 0.1 * Mathf.Max (0, (capacity - maxCapaciity));
             fuel = fuel - fuelConsumptionRate * Time.deltaTime;
         }
 
