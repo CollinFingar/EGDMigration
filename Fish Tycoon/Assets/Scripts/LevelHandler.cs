@@ -5,7 +5,8 @@ using UnityEngine.UI;
 
 public class LevelHandler : MonoBehaviour
 {
-
+    public GameObject LoseMessage;
+    public GameObject ScreenUI;
 	// Singleton pattern Implementation
 	private static LevelHandler _instance;
 	public static LevelHandler Instance {
@@ -100,6 +101,7 @@ public class LevelHandler : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
+        LoseMessage.SetActive(false);
 		Clock.setTime (5, 30, 0);
 	}
 	
@@ -118,6 +120,9 @@ public class LevelHandler : MonoBehaviour
             if (GameHandler.funds <= 0)
             {
                 Debug.Log("quit");
+                
+                LoseMessage.SetActive(true);
+                ScreenUI.SetActive(false);
             }
             GameHandler.UpdateCosts();
         }
