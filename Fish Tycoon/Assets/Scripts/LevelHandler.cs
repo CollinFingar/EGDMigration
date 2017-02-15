@@ -48,7 +48,7 @@ public class LevelHandler : MonoBehaviour
 			}
 		}
 
-		public void updateTime(float s, float td) 
+		public bool updateTime(float s, float td) 
 		{
 			seconds += s*td;
 			if (seconds >= 60.0f)
@@ -56,6 +56,7 @@ public class LevelHandler : MonoBehaviour
 				int dm = Mathf.FloorToInt (seconds / 60.0f);	// Amount of new minutes
 				minutes += dm;
 				seconds = seconds - (60.0f*dm);
+                return false;
 			}
 
 			if (minutes >= 60)
@@ -63,13 +64,16 @@ public class LevelHandler : MonoBehaviour
 				int dh = minutes / 60;	// Amount of new hours
 				hours += dh;
 				minutes = minutes - (60*dh);
+                return false;
 			}
 
 			if (hours >= 24)
 			{
-				int dd = hours / 24;
+                int dd = hours / 24;
 				hours = hours - (24*dd);
+                return true;
 			}
+            return false;
 		}
 
 		public void Copy(ClockStruct c)
@@ -81,6 +85,7 @@ public class LevelHandler : MonoBehaviour
 
 	}
 
+    public GameHandler GameHandler;
 	private ClockStruct Clock;
 	private bool pause = false;
 
@@ -106,7 +111,16 @@ public class LevelHandler : MonoBehaviour
 
 	void UpdateTime() 
 	{
-		Clock.updateTime (Time.deltaTime, getTimeDilation());
+        if (Clock.updateTime (Time.deltaTime, getTimeDilation()))
+        {
+            GameHandler.funds -= GameHandler.dailyCost;
+            Debug.Log(string.Format("day passed {0}, {1}", GameHandler.funds, GameHandler.dailyCost));
+            if (GameHandler.funds <= 0)
+            {
+                Debug.Log("quit");
+            }
+            GameHandler.UpdateCosts();
+        }
 	}
 
 	public ClockStruct getClock()

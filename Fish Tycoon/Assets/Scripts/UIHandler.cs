@@ -103,7 +103,7 @@ public class UIHandler : MonoBehaviour {
 	public Color dockActiveColor;
 
 	public AudioSource boop; //sound when clicking various things
-
+	public AudioSource boop2; //another sound for clicking things
 
 	//BOAT UI
 	public GameObject boatUI;
@@ -264,12 +264,14 @@ public class UIHandler : MonoBehaviour {
 	public void AddCrew(){
 		totalCrew++;
 		unassignedCrew++;
+		boop2.Play ();
 		UpdateCrewTexts ();
 	}
 	public void SubtractCrew(){
 		if (unassignedCrew > 0) {
 			totalCrew--;
 			unassignedCrew--;
+			boop2.Play ();
 			UpdateCrewTexts ();
 		} else {
 			print ("ERROR: NO UNASSIGNED CREW");
