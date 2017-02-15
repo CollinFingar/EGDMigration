@@ -119,6 +119,9 @@ public class UIHandler : MonoBehaviour {
 		dock1StateColorM.color = dockActiveColor;
 		dock2StateColorM.color = Color.gray;
 		dock3StateColorM.color = Color.gray;
+		boat1StateColorM.color = dockActiveColor;
+		boat2StateColorM.color = Color.gray;
+		boat3StateColorM.color = Color.gray;
 	}
 	
 	// Update is called once per frame
@@ -286,6 +289,7 @@ public class UIHandler : MonoBehaviour {
 	public void UpdateBoatState(int boatIndex, bool active){
 		boats [boatIndex].active = active;
 		RefreshManagerUIButtons ();
+		UpdateBoatColor (boatIndex);
 	}
 
 	public void UpdateDockState(int dockIndex, bool active){
@@ -313,6 +317,22 @@ public class UIHandler : MonoBehaviour {
 				dock3StateColorM.color = dockActiveColor;
 			} else {
 				dock3StateColorM.color = Color.gray;
+			}
+		}
+	}
+
+	public void UpdateBoatColor(int boatIndex){
+		if (boatIndex == 1) {
+			if (boats [1].active) {
+				boat2StateColorM.color = dockActiveColor;
+			} else {
+				boat2StateColorM.color = Color.gray;
+			}
+		} else if (boatIndex == 2) {
+			if (boats [2].active) {
+				boat3StateColorM.color = dockActiveColor;
+			} else {
+				boat3StateColorM.color = Color.gray;
 			}
 		}
 	}
