@@ -15,6 +15,16 @@ public class BoatBehavior : MonoBehaviour {
 
 	public float travelSpeed = 0.1f;
 
+    int capacity = 0;
+    public int maxCapaciity = 30;
+
+    public float maxFuel = 300.0f;
+    public float fuelConsumptionRate = 15.0f;
+    float fuel = 0.0f;
+
+    int fish = 0;
+    int refugees = 0;
+
 	void Awake() {
 		level = LevelHandler.Instance;
 
@@ -25,6 +35,7 @@ public class BoatBehavior : MonoBehaviour {
 		pathLine.startColor = pathColor;
 		pathLine.endColor = pathColor;
 
+        fuel = maxFuel;
 	}
 
 	// Use this for initialization
@@ -35,15 +46,22 @@ public class BoatBehavior : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
+        
 		checkPath ();
 		path [0] = this.gameObject.transform.position;
 		Move ();
 
+        Debug.Log ("Capacity: " + capacity + "/" + maxCapaciity + " | Fish: " + fish + " | Refugees: " + refugees + " | Fuel: " + fuel + "/" + maxFuel);
 	}
 
 	void Move() {
-		Vector3 start = this.gameObject.transform.position;
+        fuel = fuel - fuelConsumptionRate * Time.deltaTime;
+        if (fuel <= 0) {
+            fuel = 0;
+            return;
+        }
+
+        Vector3 start = this.gameObject.transform.position;
 		float timetomove = Time.deltaTime * level.getTimeDilation ();
 		while (path.Count > 1 && Vector3.Distance(path[0], path[1]) <= travelSpeed*timetomove ) {
 			if (timetomove * travelSpeed > Vector3.Distance (path [0], path [1])) {
@@ -110,4 +128,18 @@ public class BoatBehavior : MonoBehaviour {
         path.Clear ();
         path.Add (this.gameObject.transform.position);
     }
+
+    public void addStuff(CollectibleBehavior.CollectType t) {
+        switch (t) {
+            case (CollectibleBehavior.CollectType.Fish):
+                fish++;
+                break;
+            case (CollectibleBehavior.CollectType.Refugee):
+                refugees++;
+                break;
+        }
+        capacity++;
+    }
+
+
 }
