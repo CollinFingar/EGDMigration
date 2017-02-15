@@ -12,7 +12,7 @@ public class GameEvents : MonoBehaviour {
 	public string[] lowProfits; //when profits are low
 	public string[] newDock; //when the player buys a new dock
 
-	List<int> messageQueue; //list of messages to come
+	public List<int> messageQueue; //list of messages to come
 	public GameObject messageRef;
 	TextCrawl messageTextRef;
 	ArrayList textCrawling; //global 
@@ -116,7 +116,7 @@ public class GameEvents : MonoBehaviour {
 
 
 	}
-
+		
 	public void addMessage(int type) {
 		int refInt = (int)((ArrayList)textCrawling [type]) [1];
 		string[] mesRef = (string[])((ArrayList)textCrawling [type]) [0];
