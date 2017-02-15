@@ -80,7 +80,13 @@ public class GameHandler : MonoBehaviour {
 		}
 		if (SenseTimePast ()) {
 			day++;
+			if (day > 10) {
+				//END THE GAME
+			}
 			HandleNewDay ();
+		}
+		if (funds < 0) {
+			//END THE GAME
 		}
 	}
 
