@@ -245,7 +245,7 @@ public class GameHandler : MonoBehaviour {
 			timedSaves = refugeesSaved;
 			timedDeaths = refugeesDied;
 		} else if (messageNum == 2) {
-			if (timedFunds > funds * 1.1f) {
+			if (funds > (timedFunds * 1.1f)) {
 				bottomText.messageQueue.Add (4);
 			} else {
 				bottomText.messageQueue.Add (5);
